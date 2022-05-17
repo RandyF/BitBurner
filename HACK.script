@@ -1,0 +1,34 @@
+TargetServer = args[0];
+MoneyThresh = 0.55;
+
+tMaxMoney = getServerMaxMoney(TargetServer);
+tCurMoney = getServerMoneyAvailable(TargetServer);
+tSMoneyPct = tCurMoney / tMaxMoney;
+print("Cur Money Pct: ", tSMoneyPct) ;
+
+tMinSecLvl = getServerMinSecurityLevel(TargetServer);
+tCurSecLvl = getServerSecurityLevel(TargetServer);
+
+while(true)
+{
+	if(tCurSecLvl > (tMinSecLvl * 1.1))
+	{
+		// Weaken Subsection
+		tSSecLvl = getServerSecurityLevel(TargetServer);
+		print("Need to Weaken Security: ", tSSecLvl, "/", tMinSecLvl, " ", tCurSecLvl/tMinSecLvl);
+		weaken(TargetServer);
+	}
+	else if(tSMoneyPct < MoneyThresh)
+	{
+		// Grow Subsection
+		tCurMoney = getServerMoneyAvailable(TargetServer);
+		tSMoneyPct = tCurMoney / tMaxMoney;
+		print("Money Available: ", tCurMoney, "/", tMaxMoney, " ", tSMoneyPct);
+
+		grow(TargetServer);
+	}
+	else
+	{
+		hack(TargetServer);
+	}
+}
