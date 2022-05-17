@@ -1,0 +1,8 @@
+const tServers = ['neo-net', 'zer0', 'iron-gym', 'max-hardware', 'nectar-net', 'CSEC', 'joesguns', 'harakiri-sushi', 'hong-fang-tea', 'sigma-cosmetics', 'foodnstuff', 'n00dles'];
+
+killall();
+
+for(const tSvr of tServers)
+{
+    run("HACK.script", 1, tSvr);
+}

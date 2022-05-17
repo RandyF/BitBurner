@@ -14,8 +14,8 @@ while(true)
 	if(tCurSecLvl > (tMinSecLvl * 1.1))
 	{
 		// Weaken Subsection
-		tSSecLvl = getServerSecurityLevel(TargetServer);
-		print("Need to Weaken Security: ", tSSecLvl, "/", tMinSecLvl, " ", tCurSecLvl/tMinSecLvl);
+		tCurSecLvl = getServerSecurityLevel(TargetServer);
+		print("Need to Weaken Security: ", tCurSecLvl, "/", tMinSecLvl, " ", tCurSecLvl/tMinSecLvl);
 		weaken(TargetServer);
 	}
 	else if(tSMoneyPct < MoneyThresh)
