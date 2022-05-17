@@ -1,8 +1,7 @@
-const tServers = ['neo-net', 'zer0', 'iron-gym', 'max-hardware', 'nectar-net', 'CSEC', 'joesguns', 'harakiri-sushi', 'hong-fang-tea', 'sigma-cosmetics', 'foodnstuff', 'n00dles'];
+tServers = ['neo-net', 'zer0', 'iron-gym', 'max-hardware', 'nectar-net', 'CSEC', 'joesguns', 'harakiri-sushi', 'hong-fang-tea', 'sigma-cosmetics', 'foodnstuff', 'n00dles'];
 
-killall();
-
-for(const tSvr of tServers)
+for(i=0; i<tServers.length; i++)
 {
-    run("HACK.script", 1, tSvr);
+    print(tServers[i]);
+    run("HACK.script", 1, tServers[i]);
 }
