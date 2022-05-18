@@ -1,0 +1,71 @@
+//Disable Verbose Output Logging
+disableLog("scan");
+disableLog("getHackingLevel");
+disableLog("getServerRequiredHackingLevel");
+disableLog("hasRootAccess");
+disableLog("fileExists");
+disableLog("scp");
+disableLog("exec");
+
+//The version needs to be changed every time, and you need
+// to create the file.  The servers are a mesh network, so
+// you can hit the same server from one direction.  You
+// don't want to run the worm multiple times.
+WormVer = "rfW_ver_002.txt"
+
+// This is used for targeted attacks.
+AttackServer = "sigma-cosmetics"
+
+// The files needed for the worm to work properly.
+Filez = [WormVer, "rfWORM.script", "PUMP.script"];
+
+// Scan for Downstream Servers
+tServers = scan();
+
+for( i=0; i<tServers.length; i++)
+{
+	tCurServer = tServers[i];
+	print("");
+	print("Evaluating ", tCurServer);	
+
+	// Skip if we can't even hack.
+	if( getHackingLevel() < getServerRequiredHackingLevel(tCurServer) )
+	{
+		print("Not High Enough Level to Hack ", tCurServer)	
+	}
+	else // WE CAN HACK THIS SERVER
+	{
+
+		if( !hasRootAccess(tCurServer) )
+		{
+			// TODO AutoHack the Server
+		}
+
+		if( hasRootAccess(tCurServer) )  // Yes, I know I'm checking twice...
+		{
+			if( fileExists(WormVer, tCurServer) )
+			{
+				print("Already spread to server: ", tCurServer);
+			}
+			else
+			{
+				print("Copying Filez...");
+				scp(Filez, tCurServer);
+
+				print("Spawning Worm...");
+				exec("rfWORM.script", tCurServer);
+			}
+
+		}
+
+	}
+}
+
+//Now Do Stuff
+
+//maxRam = getServerMaxRam()  //TODO: Need a way to get OUR server name??
+// TODO: Calculate number of threads
+RunThreads = 1
+
+run("PUMP.script", RunThreads, AttackServer);
+

@@ -1,0 +1,24 @@
+disableLog("getServerMinSecurityLevel");
+disableLog("getServerSecurityLevel");
+
+TargetServer = args[0];
+
+tMinSecLvl = getServerMinSecurityLevel(TargetServer);
+tCurSecLvl = getServerSecurityLevel(TargetServer);
+tMaxSecLvl = tMinSecLvl * 1.1
+
+while(true)
+{
+	if(tCurSecLvl > tMaxSecLvl)
+	{
+		// Weaken Subsection
+		tCurSecLvl = getServerSecurityLevel(TargetServer);
+		print("Need to Weaken Security: ", tCurSecLvl, "/", tMinSecLvl, " ", tCurSecLvl/tMinSecLvl, " ", tMaxSecLvl);
+		weaken(TargetServer);
+	}
+	else
+	{
+		// Grow Subsection
+		grow(TargetServer);
+	}
+}
